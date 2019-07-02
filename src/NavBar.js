@@ -1,20 +1,35 @@
-import React from 'react';  
-import  {Nav} from 'react-bootstrap'
+import React from 'react';
+import { Nav } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 
 function NavBar() {
-  return (
-    <Nav activeKey="/">
-        <Nav.Item>
-            <Nav.Link href="/">Home</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-            <Nav.Link href="/shop">Shop</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-            <Nav.Link href="/contact">Contact</Nav.Link>
-        </Nav.Item>
-    </Nav>
-  );
+	const oddEvent = (match, location) => {
+		if (!match) {
+			return false;
+		}
+		const eventID = parseInt(match.params.eventID);
+		return !isNaN(eventID) && eventID % 2 === 1;
+	};
+
+	return (
+		<Nav activeKey="/">
+			<Nav.Item>
+				<NavLink isActive={oddEvent} to="/">
+					Home
+				</NavLink>
+			</Nav.Item>
+			<Nav.Item>
+				<NavLink isActive={oddEvent} to="/shop">
+					Shop
+				</NavLink>
+			</Nav.Item>
+			<Nav.Item>
+				<NavLink isActive={oddEvent} to="/contact">
+					Contact
+				</NavLink>
+			</Nav.Item>
+		</Nav>
+	);
 }
 
 export default NavBar;
